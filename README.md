@@ -1,4 +1,6 @@
 # Particle
+==========
+[![Build Status](https://travis-ci.org/jeffutter/particle-elixir.svg?branch=master)](https://travis-ci.org/jeffutter/particle-elixir)
 
 Particle Cloud API Client for Elixir:
 
