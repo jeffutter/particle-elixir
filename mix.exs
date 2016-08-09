@@ -27,6 +27,7 @@ defmodule Particle.Mixfile do
       {:poison, "~> 2.2.0"},
       {:credo, "~> 0.4", only: [:dev, :test]},
       {:ex_doc, "~> 0.12", only: :dev},
+      {:inch_ex, only: :docs},
       {:exvcr, "~> 0.7", only: :test}
     ]
   end
