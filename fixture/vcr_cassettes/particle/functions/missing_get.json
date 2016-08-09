@@ -1,0 +1,30 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "Bearer "
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.particle.io/v1/devices/MISSING"
+    },
+    "response": {
+      "body": "{\n  \"error\": \"invalid_request\",\n  \"error_description\": \"Malformed auth header\"\n}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Sat, 23 Jul 2016 03:34:10 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "80",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store",
+        "Pragma": "no-cache",
+        "ETag": "W/\"50-5b126e51\""
+      },
+      "status_code": 400,
+      "type": "ok"
+    }
+  }
+]

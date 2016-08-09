@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "TOKEN"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.particle.io/v1/devices"
+    },
+    "response": {
+      "body": "[\n  {\n    \"id\": \"DEVICE_ID\",\n    \"name\": \"PowerPhoton\",\n    \"last_app\": null,\n    \"last_ip_address\": \"0.0.0.0\",\n    \"last_heard\": \"2016-07-19T22:32:27.764Z\",\n    \"product_id\": 6,\n    \"connected\": true,\n    \"platform_id\": 6,\n    \"cellular\": false,\n    \"status\": \"normal\"\n  }\n]",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Fri, 22 Jul 2016 22:25:14 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "296",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "ETag": "W/\"128-e9ca1ff2\""
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

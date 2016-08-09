@@ -1,0 +1,28 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "TOKEN"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.particle.io/v1/devices/MISSING"
+    },
+    "response": {
+      "body": "{\n  \"error\": \"Permission Denied\",\n  \"info\": \"I didn't recognize that device name or ID, try opening https://api.particle.io/v1/devices?access_token=undefined\"\n}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Fri, 22 Jul 2016 22:04:16 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "160",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "ETag": "W/\"a0-166284cd\""
+      },
+      "status_code": 403,
+      "type": "ok"
+    }
+  }
+]
