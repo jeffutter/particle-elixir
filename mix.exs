@@ -13,12 +13,20 @@ defmodule Particle.Mixfile do
        extras: ["README.md"]
      ],
      package: package,
-     deps: deps]
+     deps: deps,
+     description: description
+   ]
   end
 
   def application do
     [applications: [:httpoison, :logger, :poison],
      mod: {Particle, []}]
+  end
+
+  defp description do
+    """
+    Client library for the Particle Cloud API.
+    """
   end
 
   defp deps do
@@ -35,9 +43,9 @@ defmodule Particle.Mixfile do
   def package do
     [
       name: :particle,
-      maintainer: ["Jeffery Utter"],
+      maintainers: ["Jeffery Utter"],
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/jeffutter/particle-elixir.ex"},
+      links: %{"Github" => "https://github.com/jeffutter/particle-elixir"},
     ]
   end
 end
