@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jeffutter/particle-elixir.svg?branch=master)](https://travis-ci.org/jeffutter/particle-elixir)
 [![Inline docs](http://inch-ci.org/github/jeffutter/particle-elixir.svg)](http://inch-ci.org/github/jeffutter/particle-elixir)
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 Particle Cloud API Client for Elixir:
 
