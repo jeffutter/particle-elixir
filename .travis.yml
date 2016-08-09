@@ -1,14 +1,19 @@
 language: elixir
-
 sudo: false
-
 elixir:
-  - 1.3.2
-
+- 1.3.2
 otp_release:
-  - 18.0
-  - 19.0
-
+- 18.0
+- 19.0
 after_script:
-  - mix deps.get --only docs
-  - MIX_ENV=docs mix inch.report
+- mix deps.get --only docs
+- MIX_ENV=docs mix inch.report
+deploy:
+  provider: script
+  script: scripts/hex.sh
+  on:
+    tags: true
+    otp_release: 19.0
+env:
+- secure: ruJxmhu1cbVwEMh0BdR3mJ3JZ4syB9Fcj2o1M9jicoaepu7O2hOMsfTbzh53xVzLBTkDMR1qQkL7gsUuP6GwcoY8xgitTsTfzxrR4S2/d9Tu16AFBB69yW6dcV32kYmzIa/kDaKtmSLhEH7RK675HAFfpO9mapwspZppjkO7mIr0rBAdYnNRq3a+LwC6Rhs3n2MIfu/M0iVEPL9sMVz974kVfsXNWpxn5rl7t1SX6m982nk4VSKoGAQKr2PzjaxGyXQ5yw39BaNjEEdpR0t+0PV8odGs3qWh5z1VKW6FRMIIbpv3Ii/+eQk19Ac0RSY5sekIcFE3HqW7BVeVZP7VpDvTYC3Vvw7sziJLHPheCXZhkVi+NknjzthYS/Vv41IVb3kZe3C181RlrkPyNa9keZvLku8LFsjlKfW1dl6xjZ63jVn8dkkeGb2iHEx+ZdzJePpnLcNoU6sepqMUc0NvEr2M5izH7IPjf0yWm9GH0ED0dLE3RIhX08w34eEHS4cnupIiHwVbT9TOe3JWDyRmZ2DcHLEmlLqjzbeWwNcMpASg6wffXPcO/eYtiaOa2A0sYo4kAS1HabR6cgCCr5liJEHvaeO+lz+8QA/IVmXz99W9qPPX4k1Lq9yJnkV+Ep7j9czCfAcDoXLcgscgoACg4c13jEPLVZGjJWjp97dtUH8=
+- secure: sa0YRfyiW3Jdr7dNEh71YGCLiblirw95umMk+lh6xqaOH7Cm1Q7v8CLQx2OSKiLXVfct5gNhoKMVbWmUEC6Q8n1VOGWHsj1NeX4S5vFqpJvTEU1mCMx18rtPQe1THxLS9f0em5LLbP5HhJKJvppBPuotd3NdqSmAN1Gk5zxMzxoaZHlo1SIoFJ0f4ei3pTFMAKe31xU3LDl3AngFMcJrRGa76M78GGoGeY4v5ZmDiVfSJ4C/wvWmeN0xBT252TDCkspSOk2EsJD+OCLzSsqwY/zx8gnTLnarshP56pIbLFme/ZMH8Uvv4B14j2aavawQ/a/AG9+9CtvJfSvBNGhblN/zgBLzomoe5PONHhe68wAixouxDLLpdWwvsleIFd7SfZ+dKll2wrrnzeNRX+5CjGWy/+sWlWOzKgjjPgdrxdIdhsonQJYIkvlh10o9Bmqu7GpC8V/v8CkyqzkkE8Fl9ouSS9nqcLBrF6oNkM0V5zrucVAL799jNEHo13olvCA+9tban0GvOsNac/yOfj9BecRN5wVW8Tg2O1yqFHLZyk9tMZxwnlsZyBVGplzLHgTuA4FgYoPmoNqVr3pfnvUMmcZVf/8b2w2z/ALEZTqUctIVICANU0jUIJAm1FJquD4DWGXo0HCqULZTQHncDCk2F+k1TmaIAJV7+p+dbdveUrg=
