@@ -20,7 +20,7 @@ def deps do
 end
 ```
 
-and run `mix deps.get`. Now, list the :particle application nas your application dependency:
+and run `mix deps.get`. Now, list the :particle application as your application dependency:
 
 ```elixir
 def application do
