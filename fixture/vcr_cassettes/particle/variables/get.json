@@ -11,15 +11,15 @@
       "url": "https://api.particle.io/v1/devices/DEVICE_ID/power"
     },
     "response": {
-      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"power\",\n  \"result\": 0,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-07-24T12:50:58.387Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-07-19T22:32:27.764Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
+      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"power\",\n  \"result\": 0,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-08-22T21:03:41.643Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-08-21T05:30:06.221Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 12:50:58 GMT",
+        "Date": "Mon, 22 Aug 2016 21:03:41 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": "285",
         "Connection": "keep-alive",
         "Access-Control-Allow-Origin": "*",
-        "ETag": "W/\"11d-b8222c4e\""
+        "ETag": "W/\"11d-222c835c\""
       },
       "status_code": 200,
       "type": "ok"

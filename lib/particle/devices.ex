@@ -1,9 +1,8 @@
 defmodule Particle.Devices do
   alias Particle.Base
+  alias Particle.Error
 
   @type t :: [Particle.Device]
-  @type error :: {:error, binary, Integer}
-  @type fatal :: {:error, binary}
 
   @endpoint "devices"
 
@@ -11,7 +10,7 @@ defmodule Particle.Devices do
   This module defines the actions that can be taken on the Devices endpoint.
   """
 
-  @spec get :: {:ok, t} | error | fatal
+  @spec get :: {:ok, t} | Error.t
   def get do
     Base.get(@endpoint, [%Particle.Device{}])
   end

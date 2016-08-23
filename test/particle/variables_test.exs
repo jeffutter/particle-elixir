@@ -7,7 +7,6 @@ defmodule Particle.VariablesTest do
     ExVCR.Config.filter_sensitive_data("Bearer .+", "TOKEN")
     ExVCR.Config.filter_sensitive_data("(.*)" <> (System.get_env("device_id") || "DEVICE_ID") <> "(.*)", "\\1DEVICE_ID\\2")
     ExVCR.Config.filter_sensitive_data("(?:\\d{1,3}\\.){3}\\d{1,3}", "0.0.0.0")
-    HTTPoison.start
     :ok
   end
 
@@ -26,7 +25,7 @@ defmodule Particle.VariablesTest do
     test "it returns an error tuple" do
       use_cassette "get_invalid_device_id" do
         response = Particle.Variables.get("MISSING", "power")
-        assert response == {:error, "Permission Denied", 403}
+        assert response == {:error, %Particle.Error{reason: "Permission Denied", code: 403, info: "I didn't recognize that device name or ID, try opening https://api.particle.io/v1/devices?access_token=undefined"}}
       end
     end
   end
@@ -36,7 +35,7 @@ defmodule Particle.VariablesTest do
       use_cassette "get_invalid_variable_name" do
         device_id = System.get_env("device_id") || "DEVICE_ID"
         response = Particle.Variables.get(device_id, "MISSING")
-        assert response == {:error, "Variable not found", 404}
+        assert response == {:error, %Particle.Error{reason: "Variable not found", code: 404}}
       end
     end
   end

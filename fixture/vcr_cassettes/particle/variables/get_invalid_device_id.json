@@ -14,7 +14,7 @@
       "body": "{\n  \"error\": \"Permission Denied\",\n  \"info\": \"I didn't recognize that device name or ID, try opening https://api.particle.io/v1/devices?access_token=undefined\"\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 12:53:39 GMT",
+        "Date": "Mon, 22 Aug 2016 21:03:42 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": "160",
         "Connection": "keep-alive",

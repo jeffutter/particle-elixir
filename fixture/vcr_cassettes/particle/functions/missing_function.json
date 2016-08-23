@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "args=off",
+      "body": "arg=off",
       "headers": {
         "Authorization": "TOKEN"
       },
@@ -14,7 +14,7 @@
       "body": "{\n  \"ok\": false,\n  \"error\": \"Function MISSING not found\"\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sat, 23 Jul 2016 03:59:21 GMT",
+        "Date": "Mon, 22 Aug 2016 21:03:46 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": "58",
         "Connection": "keep-alive",

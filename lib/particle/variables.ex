@@ -1,22 +1,21 @@
 defmodule Particle.Variables do
   alias Particle.Base
   alias Particle.Device
+  alias Particle.Error
 
   defstruct [:name, :result]
   @type t :: %__MODULE__{name: binary, result: binary}
-  @type error :: {:error, binary, Integer}
-  @type fatal :: {:error, binary}
 
   @moduledoc """
   This module defines the actions that can be taken on the Variables endpoint.
   """
 
-  @spec get(binary, binary) :: {:ok, any} | error | fatal
+  @spec get(binary, binary) :: {:ok, any} | Error.t
   def get(device_id, variable_name) do
-    Base.get("devices/#{device_id}/#{variable_name}", __MODULE__)
+    Base.get("devices/#{device_id}", variable_name, __MODULE__)
   end
 
-  @spec get_all_with_values(binary) :: {:ok, %{key: Atom}} | error | fatal
+  @spec get_all_with_values(binary) :: {:ok, %{key: Atom}} | Error.t
   def get_all_with_values(device_id) do
     case get_variables(device_id) do
       {:ok, variables} ->
@@ -29,7 +28,7 @@ defmodule Particle.Variables do
     end
   end
 
-  @spec get_variables(binary) :: {:ok, map} | error | fatal
+  @spec get_variables(binary) :: {:ok, map} | Error.t
   defp get_variables(device_id) do
     case Device.get(device_id) do
       {:ok, device} ->

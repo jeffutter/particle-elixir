@@ -11,67 +11,15 @@
       "url": "https://api.particle.io/v1/devices/DEVICE_ID"
     },
     "response": {
-      "body": "{\n  \"id\": \"DEVICE_ID\",\n  \"name\": \"PowerPhoton\",\n  \"last_app\": null,\n  \"last_ip_address\": \"0.0.0.0\",\n  \"last_heard\": \"2016-07-24T18:43:41.567Z\",\n  \"product_id\": 6,\n  \"connected\": true,\n  \"platform_id\": 6,\n  \"cellular\": false,\n  \"status\": \"normal\",\n  \"variables\": {\n    \"power\": \"int32\",\n    \"temperature\": \"double\",\n    \"min_average\": \"double\",\n    \"temp_on\": \"double\",\n    \"temp_off\": \"double\"\n  },\n  \"functions\": [\n    \"power\",\n    \"setTempOn\",\n    \"setTempOff\"\n  ],\n  \"cc3000_patch_version\": \"wl0: Nov  7 2014 16:03:45 version 0.0.0.0 FWID 01-87693213\"\n}",
+      "body": "{\n  \"id\": \"DEVICE_ID\",\n  \"name\": \"PowerPhoton\",\n  \"last_app\": null,\n  \"last_ip_address\": \"0.0.0.0\",\n  \"last_heard\": \"2016-08-22T21:03:41.770Z\",\n  \"product_id\": 6,\n  \"connected\": true,\n  \"platform_id\": 6,\n  \"cellular\": false,\n  \"status\": \"normal\",\n  \"variables\": {\n    \"power\": \"int32\",\n    \"temperature\": \"double\",\n    \"min_average\": \"double\",\n    \"temp_on\": \"double\",\n    \"temp_off\": \"double\"\n  },\n  \"functions\": [\n    \"power\",\n    \"setTempOn\",\n    \"setTempOff\"\n  ],\n  \"cc3000_patch_version\": \"wl0: Nov  7 2014 16:03:45 version 0.0.0.0 FWID 01-87693213\"\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 18:43:45 GMT",
+        "Date": "Mon, 22 Aug 2016 21:03:43 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": "581",
         "Connection": "keep-alive",
         "Access-Control-Allow-Origin": "*",
-        "ETag": "W/\"245-7013a048\""
-      },
-      "status_code": 200,
-      "type": "ok"
-    }
-  },
-  {
-    "request": {
-      "body": "",
-      "headers": {
-        "Authorization": "TOKEN"
-      },
-      "method": "get",
-      "options": [],
-      "request_body": "",
-      "url": "https://api.particle.io/v1/devices/DEVICE_ID/temperature"
-    },
-    "response": {
-      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"temperature\",\n  \"result\": 90.7249984741211,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-07-24T18:43:45.549Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-07-19T22:32:27.764Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
-      "headers": {
-        "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 18:43:45 GMT",
-        "Content-Type": "application/json; charset=utf-8",
-        "Content-Length": "306",
-        "Connection": "keep-alive",
-        "Access-Control-Allow-Origin": "*",
-        "ETag": "W/\"132-f65e0e97\""
-      },
-      "status_code": 200,
-      "type": "ok"
-    }
-  },
-  {
-    "request": {
-      "body": "",
-      "headers": {
-        "Authorization": "TOKEN"
-      },
-      "method": "get",
-      "options": [],
-      "request_body": "",
-      "url": "https://api.particle.io/v1/devices/DEVICE_ID/min_average"
-    },
-    "response": {
-      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"min_average\",\n  \"result\": 90.7249984741211,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-07-24T18:43:45.761Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-07-19T22:32:27.764Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
-      "headers": {
-        "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 18:43:45 GMT",
-        "Content-Type": "application/json; charset=utf-8",
-        "Content-Length": "306",
-        "Connection": "keep-alive",
-        "Access-Control-Allow-Origin": "*",
-        "ETag": "W/\"132-fc46af4f\""
+        "ETag": "W/\"245-b44b5693\""
       },
       "status_code": 200,
       "type": "ok"
@@ -89,15 +37,41 @@
       "url": "https://api.particle.io/v1/devices/DEVICE_ID/temp_on"
     },
     "response": {
-      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"temp_on\",\n  \"result\": 60,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-07-24T18:43:45.778Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-07-19T22:32:27.764Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
+      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"temp_on\",\n  \"result\": 60,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-08-22T21:03:43.603Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-08-21T05:30:06.221Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 18:43:45 GMT",
+        "Date": "Mon, 22 Aug 2016 21:03:43 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": "288",
         "Connection": "keep-alive",
         "Access-Control-Allow-Origin": "*",
-        "ETag": "W/\"120-79dcfd5d\""
+        "ETag": "W/\"120-ad39dc7a\""
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "TOKEN"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.particle.io/v1/devices/DEVICE_ID/min_average"
+    },
+    "response": {
+      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"min_average\",\n  \"result\": 90.7249984741211,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-08-22T21:03:43.651Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-08-21T05:30:06.221Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Mon, 22 Aug 2016 21:03:43 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "306",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "ETag": "W/\"132-1772a328\""
       },
       "status_code": 200,
       "type": "ok"
@@ -115,15 +89,15 @@
       "url": "https://api.particle.io/v1/devices/DEVICE_ID/temp_off"
     },
     "response": {
-      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"temp_off\",\n  \"result\": 65,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-07-24T18:43:45.808Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-07-19T22:32:27.764Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
+      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"temp_off\",\n  \"result\": 65,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-08-22T21:03:43.643Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-08-21T05:30:06.221Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 18:43:45 GMT",
+        "Date": "Mon, 22 Aug 2016 21:03:43 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": "289",
         "Connection": "keep-alive",
         "Access-Control-Allow-Origin": "*",
-        "ETag": "W/\"121-d0d8b77a\""
+        "ETag": "W/\"121-69166c96\""
       },
       "status_code": 200,
       "type": "ok"
@@ -141,15 +115,41 @@
       "url": "https://api.particle.io/v1/devices/DEVICE_ID/power"
     },
     "response": {
-      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"power\",\n  \"result\": 0,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-07-24T18:43:45.803Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-07-19T22:32:27.764Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
+      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"power\",\n  \"result\": 0,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-08-22T21:03:43.641Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-08-21T05:30:06.221Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 24 Jul 2016 18:43:45 GMT",
+        "Date": "Mon, 22 Aug 2016 21:03:43 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Content-Length": "285",
         "Connection": "keep-alive",
         "Access-Control-Allow-Origin": "*",
-        "ETag": "W/\"11d-a8f765a1\""
+        "ETag": "W/\"11d-6d70bc13\""
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "TOKEN"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.particle.io/v1/devices/DEVICE_ID/temperature"
+    },
+    "response": {
+      "body": "{\n  \"cmd\": \"VarReturn\",\n  \"name\": \"temperature\",\n  \"result\": 90.7249984741211,\n  \"coreInfo\": {\n    \"last_app\": \"\",\n    \"last_heard\": \"2016-08-22T21:03:44.144Z\",\n    \"connected\": true,\n    \"last_handshake_at\": \"2016-08-21T05:30:06.221Z\",\n    \"deviceID\": \"DEVICE_ID\",\n    \"product_id\": 6\n  }\n}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Mon, 22 Aug 2016 21:03:44 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "306",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "ETag": "W/\"132-2e35eb5a\""
       },
       "status_code": 200,
       "type": "ok"

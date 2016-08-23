@@ -7,7 +7,6 @@ defmodule Particle.DevicesTest do
     ExVCR.Config.filter_sensitive_data("Bearer .+", "TOKEN")
     ExVCR.Config.filter_sensitive_data("(.*)" <> (System.get_env("device_id") || "DEVICE_ID") <> "(.*)", "\\1DEVICE_ID\\2")
     ExVCR.Config.filter_sensitive_data("(?:\\d{1,3}\\.){3}\\d{1,3}", "0.0.0.0")
-    HTTPoison.start
     :ok
   end
 
