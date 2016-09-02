@@ -57,9 +57,9 @@ defmodule Particle.Http do
     end
   end
 
-  defp encode_request_body(""), do: ""
-  defp encode_request_body([]), do: ""
-  defp encode_request_body(body), do: URI.encode_query(body)
+  defp encode_request_body(""), do: {}
+  defp encode_request_body([]), do: {}
+  defp encode_request_body(l) when is_list(l), do: {:form, l}
 
   defp process_request_headers(headers) when is_map(headers) do
     Enum.into(headers, [authorization_header])
