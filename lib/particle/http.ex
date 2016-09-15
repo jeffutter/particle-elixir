@@ -14,6 +14,8 @@ defmodule Particle.Http do
     body = encode_request_body(body)
 
     case :hackney.request(method, url, headers, body, opts) do
+      {:ok, 500, _headers, _client} ->
+        {:error, Error.new(500, "Internal Server Error")}
       {:ok, status, headers, client} ->
         case :hackney.body(client) do
           {:ok, body} ->
