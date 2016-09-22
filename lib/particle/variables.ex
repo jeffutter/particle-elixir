@@ -31,6 +31,8 @@ defmodule Particle.Variables do
   @spec get_variables(binary) :: {:ok, map} | Error.t
   defp get_variables(device_id) do
     case Device.get(device_id) do
+      {:ok, %Device{connected: false}} ->
+        Error.new(503, "Device is offline.")
       {:ok, device} ->
         {:ok, device.variables}
       error ->
