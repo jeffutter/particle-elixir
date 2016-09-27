@@ -38,3 +38,50 @@ use Mix.Config
 config :particle,
   particle_key: System.get_env("PARTICLE_KEY")
 ```
+
+## Stream Usage
+
+Create a module responsible for the handling of the events. Customize `handle_events` for your application.
+
+```elixir
+defmodule MyApp.ParticleEventHandler do
+  alias Experimental.GenStage
+  alias Particle.Stream
+
+  use GenStage
+
+  def start_link() do
+    GenStage.start_link(__MODULE__, :ok, name: __MODULE__)
+  end
+
+  def init(:ok) do
+    # Starts a permanent subscription to the broadcaster
+    # which will automatically start requesting items.
+    {:consumer, :ok, subscribe_to: [Stream]}
+  end
+
+  def handle_events(events, _from, state) do
+    IO.inspect events
+    {:noreply, [], state}
+  end
+end
+```
+
+Start the workers in de `Application`.
+
+```elixir
+defmodule MyApp do
+  use Application
+
+  def start(_type, _args) do
+    import Supervisor.Spec
+
+    children = [
+      worker(Particle.Stream, ["https://api.particle.io/v1/devices/events/status"]), # define url here
+      worker(MyApp.ParticleEventHandler, [])
+    ]
+    opts = [strategy: :one_for_one, name: MyApp.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+```
