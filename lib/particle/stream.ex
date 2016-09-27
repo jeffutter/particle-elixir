@@ -1,6 +1,6 @@
 defmodule Particle.Stream.Event do
   @moduledoc false
-  defstruct event: nil, data: nil
+  defstruct event: nil, data: nil, ttl: nil, published_at: nil, coreid: nil
 end
 
 defmodule Particle.Stream do
@@ -92,8 +92,7 @@ defmodule Particle.Stream do
         %{"data" => data} = Regex.named_captures(~r/data: (?<data>.*)/, chunk)
         data = data
         |> Poison.decode!(keys: :atoms)
-        |> Map.get(:data)
-        %Event{acc | data: data}
+        struct(acc, data)
       chunk =~ ~r/"error":/ ->
         error = chunk
         |> Poison.decode!(keys: :atoms)
