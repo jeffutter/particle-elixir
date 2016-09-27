@@ -20,8 +20,8 @@ defmodule Particle.Stream do
   defdelegate stream(stages), to: GenStage
   defdelegate stop(stage, reason \\ :normal, timeout \\ :infinity), to: GenStage
 
-  def start_link(url, options \\ []) do
-    GenStage.start_link(__MODULE__, url, options)
+  def start_link(url) do
+    GenStage.start_link(__MODULE__, url, name: __MODULE__)
   end
 
   def init(url) do
