@@ -67,17 +67,18 @@ defmodule MyApp.ParticleEventHandler do
 end
 ```
 
-Start the workers in de `Application`.
+Start the workers in the `Application`.
 
 ```elixir
 defmodule MyApp do
   use Application
+  alias Particle.Stream
 
   def start(_type, _args) do
     import Supervisor.Spec
 
     children = [
-      worker(Particle.Stream, ["https://api.particle.io/v1/devices/events/status"]), # define url here
+      worker(Particle.Stream, ["https://api.particle.io/v1/devices/events/status", [name: Stream]]), # define url here
       worker(MyApp.ParticleEventHandler, [])
     ]
     opts = [strategy: :one_for_one, name: MyApp.Supervisor]
