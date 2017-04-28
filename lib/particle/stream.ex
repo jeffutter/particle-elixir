@@ -85,6 +85,12 @@ defmodule Particle.Stream do
         acc
       chunk == ":ok" ->
         acc
+      chunk =~ ~r/event:\ .*\ndata:\ / ->
+        %{"event" => event, "data" => data} = Regex.named_captures(~r/event: (?<event>.*)\ndata: (?<data>.*)/, chunk)
+        data = data
+        |> Poison.decode!(keys: :atoms)
+        %Event{event: event, data: data}
+        |> struct(data)
       chunk =~ ~r/event: / ->
         %{"event" => event} = Regex.named_captures(~r/event: (?<event>.*)/, chunk)
         %Event{event: event, data: nil}
