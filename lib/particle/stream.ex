@@ -13,70 +13,69 @@ defmodule Particle.Stream do
   use GenStage
 
   @moduledoc false
-  @base_url "https://api.particle.io/v1/"
 
-  defstruct ref: nil, demand: 0, url: "", event: %Event{}
+  defstruct ref: nil, demand: 0, url: "", http_client: nil, event: %Event{}
 
   defdelegate stream(stages), to: GenStage
   defdelegate stop(stage, reason \\ :normal, timeout \\ :infinity), to: GenStage
 
-  def start_link(url, options \\ []) do
-    GenStage.start_link(__MODULE__, url, options)
+  def start_link(url, http_client \\ Http, options \\ []) do
+    GenStage.start_link(__MODULE__, {url, http_client}, options)
   end
 
-  def init(url) do
-    {:ok, ref} = Http.stream(url, self())
-    {:producer, %__MODULE__{ref: ref, url: url}}
+  def init({url, http_client}) do
+    {:ok, ref} = http_client.stream(url, self())
+    {:producer, %__MODULE__{ref: ref, url: url, http_client: http_client}}
   end
 
-  def handle_demand(demand, state) when demand > 0 do
-    if state.demand == 0, do: :hackney.stream_next(state.ref)
-    {:noreply, [], %__MODULE__{state | demand: state.demand + demand}}
+  def handle_demand(demand, %__MODULE__{http_client: http_client, demand: previous_demand, ref: ref} = state) when demand > 0 do
+    if previous_demand == 0, do: http_client.stream_next(ref)
+    {:noreply, [], %__MODULE__{state | demand: previous_demand + demand}}
   end
 
-  def handle_info({:hackney_response, ref, {:status, status_code, reason}}, state)  do
+  def handle_info({:hackney_response, ref, {:status, status_code, reason}}, %__MODULE__{demand: demand, http_client: http_client} = state)  do
     if status_code in 200..299 do
-      if state.demand > 0, do: :hackney.stream_next(ref)
+      if demand > 0, do: http_client.stream_next(ref)
       {:noreply, [], %__MODULE__{state | ref: ref}}
     else
-      Logger.warn "Hackney Error: #{status_code} - #{inspect reason}"
-      :hackney.stream_next(ref)
+      Logger.warn fn -> {"Hackney Error: #{status_code} - #{inspect reason}"} end
+      http_client.stream_next(ref)
       {:noreply, [], %__MODULE__{state | ref: ref}}
     end
   end
 
-  def handle_info({:hackney_response, _ref, {:headers, _headers}}, state) do
-    :hackney.stream_next(state.ref)
+  def handle_info({:hackney_response, _ref, {:headers, _headers}}, %__MODULE__{http_client: http_client, ref: ref} = state) do
+    http_client.stream_next(ref)
     {:noreply, [], state}
   end
 
   def handle_info({:hackney_response, _ref, {:error, reason}}, state) do
-    Logger.warn "Hackney Error: #{inspect reason}"
+    Logger.warn fn -> {"Hackney Error: #{inspect reason}"} end
     {:stop, reason, state}
   end
 
   def handle_info({:hackney_response, _ref, :done}, state) do
-    Logger.warn "Connection Closed"
+    Logger.warn fn -> {"Connection Closed"} end
     {:stop, "Connection Closed", state}
   end
 
-  def handle_info({:hackney_response, _ref, chunk}, state) when is_binary(chunk) do
-    case event = process_chunk(chunk, state.event) do
+  def handle_info({:hackney_response, _ref, chunk}, %__MODULE__{ref: ref, event: event, demand: demand, http_client: http_client} = state) when is_binary(chunk) do
+    case event = process_chunk(chunk, event) do
       %Event{data: d, event: e} when not is_nil(d) and not is_nil(e) ->
-        if state.demand > 0, do: :hackney.stream_next(state.ref)
-        {:noreply, [event], %__MODULE__{state | event: %Event{}, demand: max(0, state.demand - 1)}}
+        if demand > 0, do: http_client.stream_next(ref)
+        {:noreply, [event], %__MODULE__{state | event: %Event{}, demand: max(0, demand - 1)}}
       {:error, error} ->
-        Logger.warn "Hackney Error: #{inspect error}"
-        :hackney.stream_next(state.ref)
+        Logger.warn fn -> {"Hackney Error: #{inspect error}"} end
+        http_client.stream_next(ref)
         {:noreply, [], %__MODULE__{state | event: event}}
       _ ->
-        :hackney.stream_next(state.ref)
+        http_client.stream_next(ref)
         {:noreply, [], %__MODULE__{state | event: event}}
     end
   end
 
-  def terminate(_reason, state) do
-    :hackney.stop_async(state.ref)
+  def terminate(_reason, %__MODULE__{http_client: http_client, ref: ref}) do
+    http_client.stop_async(ref)
   end
 
   defp process_chunk(chunk, acc \\ %Event{}) do
