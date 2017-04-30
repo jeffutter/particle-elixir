@@ -25,7 +25,7 @@ defmodule Particle.Stream do
   end
 
   def init(url) do
-    {:ok, ref} = Http.stream(url, self)
+    {:ok, ref} = Http.stream(url, self())
     {:producer, %__MODULE__{ref: ref, url: url}}
   end
 

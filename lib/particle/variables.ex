@@ -52,10 +52,10 @@ defmodule Particle.Variables do
 
   @spec pmap(%{}, (... -> any)) :: map
   defp pmap(collection, function) do
-    me = self
+    me = self()
     collection
     |> Enum.map(fn (elem) ->
-      spawn_link(fn -> (send me, {self, function.(elem)}) end) end)
+      spawn_link(fn -> (send me, {self(), function.(elem)}) end) end)
     |> Enum.map(fn (pid) ->
       receive do
         {^pid, result} -> result

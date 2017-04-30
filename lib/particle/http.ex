@@ -64,10 +64,10 @@ defmodule Particle.Http do
   defp encode_request_body(l) when is_list(l), do: {:form, l}
 
   defp process_request_headers(headers) when is_map(headers) do
-    Enum.into(headers, [authorization_header])
+    Enum.into(headers, [authorization_header()])
   end
   defp process_request_headers(_headers) do
-    Enum.into(%{}, [authorization_header])
+    Enum.into(%{}, [authorization_header()])
   end
 
   @spec authorization_header() :: {:Authorization, binary}
