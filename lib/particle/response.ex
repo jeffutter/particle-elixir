@@ -22,7 +22,7 @@ defmodule Particle.Response do
 
   defp process_headers(headers) do
     headers
-    |> Enum.map(fn {k,v} -> {String.downcase(k), v} end)
+    |> Enum.map(fn {k, v} -> {String.downcase(k), v} end)
   end
 
   defp decode_response_body(""), do: ""

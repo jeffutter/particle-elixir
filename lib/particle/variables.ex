@@ -20,7 +20,7 @@ defmodule Particle.Variables do
     case get_variables(device_id) do
       {:ok, variables} ->
         result = variables
-        |> pmap(fn {k,_v} -> {k, get_value(device_id, k)} end)
+        |> pmap(fn {k, _v} -> {k, get_value(device_id, k)} end)
         |> Enum.into(%{})
         {:ok, result}
       error ->

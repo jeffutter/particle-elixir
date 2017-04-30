@@ -1,6 +1,5 @@
 defmodule Particle.Http do
   alias Particle.Error
-  alias Particle.Stream
   alias Particle.Response
 
   @moduledoc false
@@ -45,6 +44,10 @@ defmodule Particle.Http do
       {:recv_timeout, :infinity}
     ]
     request(:get, url, "", [], options)
+  end
+
+  def stream_next(ref) do
+    :hackney.stream_next(ref)
   end
 
   defp process_params(url, nil), do: url
