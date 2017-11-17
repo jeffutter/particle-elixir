@@ -6,7 +6,6 @@ end
 defmodule Particle.Stream do
   require Logger
 
-  alias Experimental.GenStage
   alias Particle.Stream.Event
   alias Particle.Http
 

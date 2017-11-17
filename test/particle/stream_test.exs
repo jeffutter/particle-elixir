@@ -8,7 +8,6 @@ defmodule FakeHackney do
 end
 
 defmodule TestConsumer do
-  alias Experimental.GenStage
   use GenStage
 
   def start_link(producer) do
