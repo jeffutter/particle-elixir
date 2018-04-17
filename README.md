@@ -78,7 +78,7 @@ defmodule MyApp do
     import Supervisor.Spec
 
     children = [
-      worker(Particle.Stream, ["https://api.particle.io/v1/devices/events/status", [name: Stream]]), # define url here
+      worker(Particle.Stream, ["https://api.particle.io/v1/devices/events/status", Particle.Http, [name: Stream]]), # define url here
       worker(MyApp.ParticleEventHandler, [])
     ]
     opts = [strategy: :one_for_one, name: MyApp.Supervisor]
