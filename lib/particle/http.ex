@@ -56,6 +56,10 @@ defmodule Particle.Http do
     :hackney.stream_next(ref)
   end
 
+  def stop_async(ref) do
+    :hackney.stop_async(ref)
+  end
+
   defp process_params(url, nil), do: url
   defp process_params(url, params), do: url <> "?" <> URI.encode_query(params)
 
