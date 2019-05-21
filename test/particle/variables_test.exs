@@ -5,7 +5,12 @@ defmodule Particle.VariablesTest do
   setup do
     ExVCR.Config.cassette_library_dir("fixture/vcr_cassettes/particle/variables")
     ExVCR.Config.filter_sensitive_data("Bearer .+", "TOKEN")
-    ExVCR.Config.filter_sensitive_data("(.*)" <> (System.get_env("device_id") || "DEVICE_ID") <> "(.*)", "\\1DEVICE_ID\\2")
+
+    ExVCR.Config.filter_sensitive_data(
+      "(.*)" <> (System.get_env("device_id") || "DEVICE_ID") <> "(.*)",
+      "\\1DEVICE_ID\\2"
+    )
+
     ExVCR.Config.filter_sensitive_data("(?:\\d{1,3}\\.){3}\\d{1,3}", "0.0.0.0")
     :ok
   end
@@ -25,7 +30,15 @@ defmodule Particle.VariablesTest do
     test "it returns an error tuple" do
       use_cassette "get_invalid_device_id" do
         response = Particle.Variables.get("MISSING", "power")
-        assert response == {:error, %Particle.Error{reason: "Permission Denied", code: 403, info: "I didn't recognize that device name or ID, try opening https://api.particle.io/v1/devices?access_token=undefined"}}
+
+        assert response ==
+                 {:error,
+                  %Particle.Error{
+                    reason: "Permission Denied",
+                    code: 403,
+                    info:
+                      "I didn't recognize that device name or ID, try opening https://api.particle.io/v1/devices?access_token=undefined"
+                  }}
       end
     end
   end
@@ -46,7 +59,14 @@ defmodule Particle.VariablesTest do
         device_id = System.get_env("device_id") || "DEVICE_ID"
         response = Particle.Variables.get_all_with_values(device_id)
         assert {:ok, r} = response
-        assert r == %{min_average: 90.7249984741211, power: 0, temp_off: 65, temp_on: 60, temperature: 90.7249984741211}
+
+        assert r == %{
+                 min_average: 90.7249984741211,
+                 power: 0,
+                 temp_off: 65,
+                 temp_on: 60,
+                 temperature: 90.7249984741211
+               }
       end
     end
   end

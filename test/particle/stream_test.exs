@@ -37,7 +37,16 @@ defmodule Particle.StreamTest do
     send(stage, {:hackney_response, :ref, "event: foo"})
     send(stage, {:hackney_response, :ref, ~s(data: {"data": {"foo": "bar"}})})
 
-    assert_receive {:received, [%Event{coreid: nil, data: %{foo: "bar"}, event: "foo", published_at: nil, ttl: nil}]}
+    assert_receive {:received,
+                    [
+                      %Event{
+                        coreid: nil,
+                        data: %{foo: "bar"},
+                        event: "foo",
+                        published_at: nil,
+                        ttl: nil
+                      }
+                    ]}
   end
 
   describe "it emits events when a complete event occurs on one line" do
@@ -46,6 +55,15 @@ defmodule Particle.StreamTest do
 
     send(stage, {:hackney_response, :ref, ~s(event: foo\ndata: {"data": {"foo": "bar"}})})
 
-    assert_receive {:received, [%Event{coreid: nil, data: %{foo: "bar"}, event: "foo", published_at: nil, ttl: nil}]}
+    assert_receive {:received,
+                    [
+                      %Event{
+                        coreid: nil,
+                        data: %{foo: "bar"},
+                        event: "foo",
+                        published_at: nil,
+                        ttl: nil
+                      }
+                    ]}
   end
 end

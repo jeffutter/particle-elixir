@@ -2,15 +2,16 @@ defmodule Particle.Response do
   @moduledoc false
 
   defstruct [:status_code, :headers, :body]
+
   @type t :: %__MODULE__{
-    status_code: status_code,
-    headers: headers,
-    body: body
-  }
+          status_code: status_code,
+          headers: headers,
+          body: body
+        }
 
   @type status_code :: integer
-  @type headers     :: list
-  @type body        :: binary | map
+  @type headers :: list
+  @type body :: binary | map
 
   def new(status_code, headers, body) do
     %__MODULE__{
@@ -27,6 +28,7 @@ defmodule Particle.Response do
 
   defp decode_response_body(""), do: ""
   defp decode_response_body(" "), do: ""
+
   defp decode_response_body(body) do
     Jason.decode!(body, keys: :atoms)
   end

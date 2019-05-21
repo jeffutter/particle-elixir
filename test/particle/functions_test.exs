@@ -7,7 +7,12 @@ defmodule Particle.FunctionsTest do
   setup do
     ExVCR.Config.cassette_library_dir("fixture/vcr_cassettes/particle/functions")
     ExVCR.Config.filter_sensitive_data("Bearer .+", "TOKEN")
-    ExVCR.Config.filter_sensitive_data("(.*)" <> (System.get_env("device_id") || "DEVICE_ID") <> "(.*)", "\\1DEVICE_ID\\2")
+
+    ExVCR.Config.filter_sensitive_data(
+      "(.*)" <> (System.get_env("device_id") || "DEVICE_ID") <> "(.*)",
+      "\\1DEVICE_ID\\2"
+    )
+
     ExVCR.Config.filter_sensitive_data("(?:\\d{1,3}\\.){3}\\d{1,3}", "0.0.0.0")
     :ok
   end
@@ -28,7 +33,9 @@ defmodule Particle.FunctionsTest do
       use_cassette "missing_function" do
         device_id = System.get_env("device_id") || "DEVICE_ID"
         response = Particle.Functions.post(device_id, "MISSING", "off")
-        assert response == {:error, %Particle.Error{reason: "Function MISSING not found", code: 404}}
+
+        assert response ==
+                 {:error, %Particle.Error{reason: "Function MISSING not found", code: 404}}
       end
     end
   end

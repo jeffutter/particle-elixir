@@ -2,25 +2,25 @@ defmodule Particle.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :particle,
-     version: "0.2.0",
-     elixir: "~> 1.6",
-     name: "Particle Api Client",
-     source_url: "https://github.com/jeffutter/particle-elixir.ex",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     docs: [
-       extras: ["README.md"]
-     ],
-     package: package(),
-     deps: deps(),
-     description: description()
-   ]
+    [
+      app: :particle,
+      version: "0.2.0",
+      elixir: "~> 1.6",
+      name: "Particle Api Client",
+      source_url: "https://github.com/jeffutter/particle-elixir.ex",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      docs: [
+        extras: ["README.md"]
+      ],
+      package: package(),
+      deps: deps(),
+      description: description()
+    ]
   end
 
   def application do
-    [applications: [:hackney, :gen_stage, :logger],
-     mod: {Particle, []}]
+    [applications: [:hackney, :gen_stage, :logger], mod: {Particle, []}]
   end
 
   defp description do
@@ -46,7 +46,7 @@ defmodule Particle.Mixfile do
       name: :particle,
       maintainers: ["Jeffery Utter"],
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/jeffutter/particle-elixir"},
+      links: %{"Github" => "https://github.com/jeffutter/particle-elixir"}
     ]
   end
 end
