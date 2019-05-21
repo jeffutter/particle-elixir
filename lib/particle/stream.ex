@@ -86,7 +86,7 @@ defmodule Particle.Stream do
       chunk =~ ~r/event:\ .*\ndata:\ / ->
         %{"event" => event, "data" => data} = Regex.named_captures(~r/event: (?<event>.*)\ndata: (?<data>.*)/, chunk)
         data = data
-        |> Poison.decode!(keys: :atoms)
+        |> Jason.decode!(keys: :atoms)
         %Event{event: event, data: data}
         |> struct(data)
       chunk =~ ~r/event: / ->
@@ -95,11 +95,11 @@ defmodule Particle.Stream do
       chunk =~ ~r/data: / ->
         %{"data" => data} = Regex.named_captures(~r/data: (?<data>.*)/, chunk)
         data = data
-        |> Poison.decode!(keys: :atoms)
+        |> Jason.decode!(keys: :atoms)
         struct(acc, data)
       chunk =~ ~r/"error":/ ->
         error = chunk
-        |> Poison.decode!(keys: :atoms)
+        |> Jason.decode!(keys: :atoms)
         {:error, error}
       true ->
         acc

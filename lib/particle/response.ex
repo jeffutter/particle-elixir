@@ -28,6 +28,6 @@ defmodule Particle.Response do
   defp decode_response_body(""), do: ""
   defp decode_response_body(" "), do: ""
   defp decode_response_body(body) do
-    Poison.decode!(body, keys: :atoms)
+    Jason.decode!(body, keys: :atoms)
   end
 end

@@ -4,7 +4,7 @@ defmodule Particle.FunctionsTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  setup_all do
+  setup do
     ExVCR.Config.cassette_library_dir("fixture/vcr_cassettes/particle/functions")
     ExVCR.Config.filter_sensitive_data("Bearer .+", "TOKEN")
     ExVCR.Config.filter_sensitive_data("(.*)" <> (System.get_env("device_id") || "DEVICE_ID") <> "(.*)", "\\1DEVICE_ID\\2")
