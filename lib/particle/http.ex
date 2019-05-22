@@ -77,15 +77,15 @@ defmodule Particle.Http do
   defp encode_request_body(l) when is_list(l), do: {:form, l}
 
   defp process_request_headers(headers) when is_map(headers) do
-    Enum.into(headers, [authorization_header()])
+    (headers |> Map.to_list()) ++ authorization_header()
   end
 
   defp process_request_headers(_headers) do
-    Enum.into([authorization_header()], %{})
+    authorization_header()
   end
 
   @spec authorization_header() :: {:Authorization, binary}
   defp authorization_header do
-    {:Authorization, "Bearer #{Application.get_env(:particle, :particle_key)}"}
+    [{:Authorization, "Bearer #{Application.get_env(:particle, :particle_key)}"}]
   end
 end
