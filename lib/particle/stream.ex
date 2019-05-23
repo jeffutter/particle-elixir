@@ -44,7 +44,7 @@ defmodule Particle.Stream do
       if demand > 0, do: http_client.stream_next(ref)
       {:noreply, [], %__MODULE__{state | ref: ref}}
     else
-      Logger.warn(fn -> {"Hackney Error: #{status_code} - #{inspect(reason)}"} end)
+      Logger.warn("Hackney Error: #{status_code} - #{inspect(reason)}")
       http_client.stream_next(ref)
       {:noreply, [], %__MODULE__{state | ref: ref}}
     end
@@ -59,12 +59,12 @@ defmodule Particle.Stream do
   end
 
   def handle_info({:hackney_response, _ref, {:error, reason}}, state) do
-    Logger.warn(fn -> {"Hackney Error: #{inspect(reason)}"} end)
+    Logger.warn("Hackney Error: #{inspect(reason)}")
     {:stop, reason, state}
   end
 
   def handle_info({:hackney_response, _ref, :done}, state) do
-    Logger.warn(fn -> {"Connection Closed"} end)
+    Logger.warn("Connection Closed")
     {:stop, "Connection Closed", state}
   end
 
@@ -79,7 +79,7 @@ defmodule Particle.Stream do
         {:noreply, [event], %__MODULE__{state | event: %Event{}, demand: max(0, demand - 1)}}
 
       {:error, error} ->
-        Logger.warn(fn -> {"Hackney Error: #{inspect(error)}"} end)
+        Logger.warn("Hackney Error: #{inspect(error)}")
         http_client.stream_next(ref)
         {:noreply, [], %__MODULE__{state | event: event}}
 
