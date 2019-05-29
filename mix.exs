@@ -4,7 +4,7 @@ defmodule Particle.Mixfile do
   def project do
     [
       app: :particle,
-      version: "0.2.0",
+      version: "1.0.0",
       elixir: "~> 1.6",
       name: "Particle Api Client",
       source_url: "https://github.com/jeffutter/particle-elixir.ex",
