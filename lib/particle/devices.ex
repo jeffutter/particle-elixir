@@ -10,7 +10,7 @@ defmodule Particle.Devices do
   This module defines the actions that can be taken on the Devices endpoint.
   """
 
-  @spec get :: {:ok, t} | Error.t
+  @spec get :: {:ok, t} | Error.t()
   def get do
     Base.get(@endpoint, [%Particle.Device{}])
   end

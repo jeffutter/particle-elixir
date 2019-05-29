@@ -27,46 +27,62 @@ defmodule Particle.Stream do
     {:producer, %__MODULE__{ref: ref, url: url, http_client: http_client}}
   end
 
-  def handle_demand(demand, %__MODULE__{http_client: http_client, demand: previous_demand, ref: ref} = state) when demand > 0 do
+  def handle_demand(
+        demand,
+        %__MODULE__{http_client: http_client, demand: previous_demand, ref: ref} = state
+      )
+      when demand > 0 do
     if previous_demand == 0, do: http_client.stream_next(ref)
     {:noreply, [], %__MODULE__{state | demand: previous_demand + demand}}
   end
 
-  def handle_info({:hackney_response, ref, {:status, status_code, reason}}, %__MODULE__{demand: demand, http_client: http_client} = state)  do
+  def handle_info(
+        {:hackney_response, ref, {:status, status_code, reason}},
+        %__MODULE__{demand: demand, http_client: http_client} = state
+      ) do
     if status_code in 200..299 do
       if demand > 0, do: http_client.stream_next(ref)
       {:noreply, [], %__MODULE__{state | ref: ref}}
     else
-      Logger.warn fn -> {"Hackney Error: #{status_code} - #{inspect reason}"} end
+      Logger.warn("Hackney Error: #{status_code} - #{inspect(reason)}")
       http_client.stream_next(ref)
       {:noreply, [], %__MODULE__{state | ref: ref}}
     end
   end
 
-  def handle_info({:hackney_response, _ref, {:headers, _headers}}, %__MODULE__{http_client: http_client, ref: ref} = state) do
+  def handle_info(
+        {:hackney_response, _ref, {:headers, _headers}},
+        %__MODULE__{http_client: http_client, ref: ref} = state
+      ) do
     http_client.stream_next(ref)
     {:noreply, [], state}
   end
 
   def handle_info({:hackney_response, _ref, {:error, reason}}, state) do
-    Logger.warn fn -> {"Hackney Error: #{inspect reason}"} end
+    Logger.warn("Hackney Error: #{inspect(reason)}")
     {:stop, reason, state}
   end
 
   def handle_info({:hackney_response, _ref, :done}, state) do
-    Logger.warn fn -> {"Connection Closed"} end
+    Logger.warn("Connection Closed")
     {:stop, "Connection Closed", state}
   end
 
-  def handle_info({:hackney_response, _ref, chunk}, %__MODULE__{ref: ref, event: event, demand: demand, http_client: http_client} = state) when is_binary(chunk) do
+  def handle_info(
+        {:hackney_response, _ref, chunk},
+        %__MODULE__{ref: ref, event: event, demand: demand, http_client: http_client} = state
+      )
+      when is_binary(chunk) do
     case event = process_chunk(chunk, event) do
       %Event{data: d, event: e} when not is_nil(d) and not is_nil(e) ->
         if demand > 0, do: http_client.stream_next(ref)
         {:noreply, [event], %__MODULE__{state | event: %Event{}, demand: max(0, demand - 1)}}
+
       {:error, error} ->
-        Logger.warn fn -> {"Hackney Error: #{inspect error}"} end
+        Logger.warn("Hackney Error: #{inspect(error)}")
         http_client.stream_next(ref)
         {:noreply, [], %__MODULE__{state | event: event}}
+
       _ ->
         http_client.stream_next(ref)
         {:noreply, [], %__MODULE__{state | event: event}}
@@ -77,30 +93,45 @@ defmodule Particle.Stream do
     http_client.stop_async(ref)
   end
 
-  defp process_chunk(chunk, acc \\ %Event{}) do
+  defp process_chunk(chunk, acc) do
     cond do
-      chunk == ""    ->
+      chunk == "" ->
         acc
+
       chunk == ":ok" ->
         acc
+
       chunk =~ ~r/event:\ .*\ndata:\ / ->
-        %{"event" => event, "data" => data} = Regex.named_captures(~r/event: (?<event>.*)\ndata: (?<data>.*)/, chunk)
-        data = data
-        |> Poison.decode!(keys: :atoms)
+        %{"event" => event, "data" => data} =
+          Regex.named_captures(~r/event: (?<event>.*)\ndata: (?<data>.*)/, chunk)
+
+        data =
+          data
+          |> Jason.decode!(keys: :atoms)
+
         %Event{event: event, data: data}
         |> struct(data)
+
       chunk =~ ~r/event: / ->
         %{"event" => event} = Regex.named_captures(~r/event: (?<event>.*)/, chunk)
         %Event{event: event, data: nil}
+
       chunk =~ ~r/data: / ->
         %{"data" => data} = Regex.named_captures(~r/data: (?<data>.*)/, chunk)
-        data = data
-        |> Poison.decode!(keys: :atoms)
+
+        data =
+          data
+          |> Jason.decode!(keys: :atoms)
+
         struct(acc, data)
+
       chunk =~ ~r/"error":/ ->
-        error = chunk
-        |> Poison.decode!(keys: :atoms)
+        error =
+          chunk
+          |> Jason.decode!(keys: :atoms)
+
         {:error, error}
+
       true ->
         acc
     end

@@ -10,7 +10,7 @@ defmodule Particle.Functions do
   This module defines the actions that can be taken on the Functions endpoint.
   """
 
-  @spec post(binary, binary, binary) :: {:ok, any} | Error.t
+  @spec post(binary, binary, binary) :: {:ok, any} | Error.t()
   def post(device_id, function_name, argument) do
     Base.post(@endpoint, "#{device_id}/#{function_name}", [{:arg, argument}], __MODULE__)
   end
